@@ -1,44 +1,336 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的主页</title>
-    <style>
-        /* 全局重置与基础样式 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的主页</title>
+  <style>
+    /* 基础重置 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        :root {
-            --bg: #f9fafc;
-            --text: #1e2b3c;
-            --muted: #5e6f8d;
-            --primary: #2d5f9a;
-            --card-bg: #ffffff;
-            --border-light: #e2e8f0;
-            --radius: 12px;
-            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.03);
-        }
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #f7f7f9;
+      color: #1e1e2f;
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+      min-height: 100vh;
+    }
 
+    /* 主容器 —— 干净的白卡片 */
+    .container {
+      max-width: 720px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 2.5rem 2.2rem;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    }
+
+    /* 头部：头像 + 名字 */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: #3b4b8a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .avatar span {
+      font-size: 2.8rem;
+      color: white;
+      font-weight: 400;
+    }
+
+    .avatar img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .name h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #111827;
+      margin-bottom: 0.25rem;
+      line-height: 1.2;
+    }
+
+    .name .sub {
+      font-size: 1rem;
+      color: #6b7280;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    /* 简介 */
+    .bio {
+      background: #fafafc;
+      border-radius: 12px;
+      padding: 1.5rem 1.5rem;
+      margin-bottom: 2rem;
+      border: 1px solid #e9e9ef;
+    }
+
+    .bio p {
+      font-size: 1rem;
+      color: #2d3344;
+      line-height: 1.7;
+    }
+
+    .bio p + p {
+      margin-top: 0.8rem;
+      color: #4b5563;
+    }
+
+    /* 技能区 */
+    .section-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #6b7280;
+      margin-bottom: 1rem;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+    }
+
+    .skill {
+      background: #f3f4f8;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 450;
+      color: #1f2937;
+      border: 1px solid #e5e7eb;
+    }
+
+    /* 分割线 */
+    .divider {
+      height: 1px;
+      background: #e5e7eb;
+      margin: 2rem 0;
+    }
+
+    /* 联系方式 */
+    .contacts {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.7rem 1rem;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      text-decoration: none;
+      color: #1f2937;
+      font-size: 1rem;
+      transition: background 0.15s;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 1px;
+    }
+
+    .contact-item:hover {
+      background: #f9fafc;
+      border-color: #cbd5e1;
+    }
+
+    .contact-icon {
+      font-size: 1.2rem;
+      width: 1.8rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .contact-text {
+      font-weight: 450;
+      word-break: break-all;
+    }
+
+        /* 小彩蛋 */
+    .random-line {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #6b7280;
+      background: #fafafc;
+      border: 1px dashed #e0e0e8;
+      border-radius: 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .random-line:hover {
+      background: #f3f4f8;
+      color: #3b4b8a;
+    }
+
+    /* 简单响应式 */
+    @media (max-width: 550px) {
         body {
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding: 1.5rem;
-        }
-    </style>
+        padding: 1.2rem;
+    }
+
+    .container {
+        padding: 1.8rem 1.2rem;
+    }
+
+    .header {
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .avatar {
+        width: 70px;
+        height: 70px;
+    }
+
+    .name h1 {
+        font-size: 1.6rem;
+    }
+
+    .bio {
+        padding: 1.2rem;
+    }
+
+    .contact-item {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.95rem;
+    }
+    }
+  </style>
 </head>
 <body>
-    <h1>你点开看了吗</h1>
-    <a href="https://www.douyin.com">来刷会儿抖音吧</a>
-    <p>或者</p>
-    <a href="https://github.com/ucktnu/">访问我的主页</a>
+  <div class="container">
+    <!-- 头部 -->
+    <div class="header">
+      <div class="avatar">
+        <img src="./images/avatar.png" alt="">
+      </div>
+      <div class="name">
+        <h1>ucktnu</h1>
+        <div class="sub">
+          <span >Hello world, </span>
+          <span >Hello stranger</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 简介 -->
+    <div class="bio">
+      <p>我叫ucktnu, 是一个好人, 我喜欢学习一切有趣的东西 </p>
+      <p>目前正在学习 C++ , 或许我们可以一起交流. </p>
+    </div>
+
+    <!-- 技能标签 -->
+    <div class="section-title">我的技能</div>
+    <div class="skills">
+      <span class="skill">Python 程序设计(入门)</span>
+      <span class="skill">C++ 程序设计(入门)</span>
+    </div>
+
+    <!-- 分割线 -->
+    <div class="divider"></div>
+
+    <!-- 联系方式 -->
+    <div class="section-title">联系我:</div>
+    <div class="contacts">
+      <a href="https://github.com/ucktnu" class="contact-item">
+        <span class="contact-icon">
+            <svg data-component="Octicon" aria-hidden="true" focusable="false" class="octicon octicon-mark-github" viewBox="0 0 24 24" width="32" height="32" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom">
+                <path d="M10.226 17.284c-2.965-.36-5.054-2.493-5.054-5.256 0-1.123.404-2.336 1.078-3.144-.292-.741-.247-2.314.09-2.965.898-.112 2.111.36 2.83 1.01.853-.269 1.752-.404 2.853-.404 1.1 0 1.999.135 2.807.382.696-.629 1.932-1.1 2.83-.988.315.606.36 2.179.067 2.942.72.854 1.101 2 1.101 3.167 0 2.763-2.089 4.852-5.098 5.234.763.494 1.28 1.572 1.28 2.807v2.336c0 .674.561 1.056 1.235.786 4.066-1.55 7.255-5.615 7.255-10.646C23.5 6.188 18.334 1 11.978 1 5.62 1 .5 6.188.5 12.545c0 4.986 3.167 9.12 7.435 10.669.606.225 1.19-.18 1.19-.786V20.63a2.9 2.9 0 0 1-1.078.224c-1.483 0-2.359-.808-2.987-2.313-.247-.607-.517-.966-1.034-1.033-.27-.023-.359-.135-.359-.27 0-.27.45-.471.898-.471.652 0 1.213.404 1.797 1.235.45.651.921.943 1.483.943.561 0 .92-.202 1.437-.719.382-.381.674-.718.944-.943"></path>
+            </svg>
+        </span>
+        <span class="contact-text">GitHub</span>
+      </a>
+    </div>
+
+    <!-- 彩蛋：点击换一句话 -->
+    <div class="divider"></div>
+    <div class="section-title">小tips:</div>
+    <p id="random-line" class="random-line" title="点我换一句">今天也是适合写代码的一天 ✨</p>
+  </div>
+
+    <script>
+        const lines = [
+            "今天出门记得带伞哦，天看起来阴沉沉的 (｡•́︿•̀｡)",
+            "我刚吃完一大碗面，撑得走不动路了，你呢？",
+            "啊……好困，明明睡了八个小时还是想睡 (￣o￣) zzZ",
+            "你有没有那种，明明很忙却什么都不想干的时刻",
+            "咕噜咕噜——是我肚子在叫，不是打雷哦",
+            "突然想起来，你上次说的那家店我去了，真的好吃！",
+            "外面风好大，头发被吹成鸡窝了 (｀・ω・´)",
+            "嘿，今天也要好好吃饭呀，别又随便对付一口",
+            "我刚刚差点被自己的鞋带绊倒，太丢人了……",
+            "叮咚——您的好友已上线，并带来一句无聊的问候",
+            "窗外的云长得像一只大胖猫，我盯了五分钟 (´｡• ᵕ •｡`)",
+            "有点想吃甜的，但是又怕胖，人生好难",
+            "你那边天气怎么样？我这儿闷得像蒸笼",
+            "刚才打了个超大的哈欠，眼泪都出来了",
+            "呜哇，手机只剩百分之三的电了，先跟你说一声",
+            "我发现躺着的时候脑子最活跃，一坐起来就空了",
+            "记得喝水呀，我已经喝了三杯了，厉害吧 (๑•̀ㅂ•́)و✧",
+            "啪嗒啪嗒……是我在敲键盘，假装很忙的样子",
+            "今天走路踩到一片特别脆的叶子，莫名很爽",
+            "好想出去玩啊，但是又懒得动，矛盾体本人",
+            "跟你说，我今天居然按时起床了，快夸我",
+            "嘶——好冷，你那边降温了吗，记得加衣服",
+            "我刚刚对着镜子做了个鬼脸，把自己逗笑了",
+            "有点无聊，来跟你说句废话：今天也是普通的一天呢",
+            "呼——终于忙完了，瘫在椅子上不想动 (´-ω-`)",
+            "你猜我刚才看到什么？一只狗在追自己的尾巴，转了好几圈",
+            "下雨天最适合窝着了，可惜还得干活",
+            "嗯……我在想晚上吃什么，你有建议吗",
+            "突然有点想你了，就随便说一句，别多想哦 (￣▽￣)",
+            "哐当——是我又把杯子碰倒了，今天第二次了……"
+        ];
+
+        const el = document.getElementById("random-line");
+        let lastIndex = -1;
+        el.textContent = lines[Math.floor(Math.random() * lines.length)];
+        el.addEventListener("click", () => {
+        let next;
+        do {
+            next = Math.floor(Math.random() * lines.length);
+        } while (next === lastIndex && lines.length > 1);
+        lastIndex = next;
+        el.textContent = lines[next];
+        });
+  </script>
 </body>
 </html>
